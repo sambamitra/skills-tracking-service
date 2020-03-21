@@ -58,6 +58,8 @@ Once the application is running :-
 
 - Go to `http://localhost:8080/swagger-ui.html` to see the API contract. All the operations can be performed using this
 
+- Check the data in the database using any tool (e.g. - Postico)
+
 ## How the application works
 
 - `Person` and `Skill` are the 2 main entities having many-many relationship
