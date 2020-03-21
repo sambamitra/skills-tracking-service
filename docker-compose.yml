@@ -1,0 +1,38 @@
+version: "3.3"
+
+services:
+
+  skills-tracking-service:
+    build:
+      dockerfile: .
+    container_name: skills-tracking-service
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+    networks:
+      - custom-net
+      
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    hostname: postgres
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - postgres_data
+    networks:
+      - custom-net
+
+volumes:
+  postgres_data: {}
+  
+networks:
+  applications-net:
+    driver: bridge

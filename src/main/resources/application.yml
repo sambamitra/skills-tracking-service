@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: skills-tracking-service
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+  datasource:
+    hikari:
+      maximum-pool-size: 20
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      leak-detection-threshold: 60000
+    jpa:
+      hibernate:
+        ddl-auto: validate
+      properties:
+        hibernate:
+          format_sql: true
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+logging:
+  level:
+    ROOT: ERROR
+    uk:
+      gov: INFO
+
+info:
+  app:
+    name: @project.name@
+    description: @project.description@
+    version: @project.version@
+
+
+  
