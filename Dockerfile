@@ -8,8 +8,8 @@ MAINTAINER Samba Mitra
 VOLUME /tmp
 
 # Add the service
-ARG JAR_FILE
-ADD target/skils-tracking-service-1.0.0-SNAPSHOT.jar app.jar
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080

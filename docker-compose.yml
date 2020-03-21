@@ -3,8 +3,7 @@ version: "3.3"
 services:
 
   skills-tracking-service:
-    build:
-      dockerfile: .
+    image: nhsbsa/sts:latest
     container_name: skills-tracking-service
     restart: unless-stopped
     ports:
@@ -22,17 +21,17 @@ services:
     hostname: postgres
     container_name: postgres
     ports:
-      - 5432:5432
+      - 54320:5432
     environment:
       POSTGRES_PASSWORD: secret
     volumes:
-      - postgres_data
+      - postgres_data:/data/postgres
     networks:
       - custom-net
 
 volumes:
-  postgres_data: {}
+  postgres_data:
   
 networks:
-  applications-net:
+  custom-net:
     driver: bridge

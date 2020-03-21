@@ -40,6 +40,8 @@ The following Spring profiles have been provided in the application to run it ag
 ```
 docker build -t nhsbsa/sts:latest .
 
+mv .env.example .env
+
 docker-compose up -d
 ```
 
