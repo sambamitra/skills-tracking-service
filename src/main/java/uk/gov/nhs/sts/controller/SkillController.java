@@ -77,7 +77,7 @@ public class SkillController {
       return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
-    this.service.createOrUpdateSkill(skillDto, false);
+    this.service.createSkill(skillDto);
 
     return new ResponseEntity<>(skillDto, HttpStatus.CREATED);
   }
@@ -102,7 +102,7 @@ public class SkillController {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    this.service.createOrUpdateSkill(skillDto, true);
+    this.service.updateSkill(skillDto, name);
 
     return new ResponseEntity<>(skillDto, HttpStatus.OK);
   }

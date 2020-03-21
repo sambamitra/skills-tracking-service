@@ -149,7 +149,7 @@ public class PeopleManagementServiceTest {
         .personSkills(new HashSet<>(Arrays.asList(personSkill))).build();
 
     // when
-    this.service.createOrUpdatePersonWithSkills(personDto, false);
+    this.service.createPerson(personDto);
 
     // then
     verify(this.personRepository, times(2)).saveAndFlush(personArgument.capture());
@@ -179,7 +179,7 @@ public class PeopleManagementServiceTest {
         .personSkills(new HashSet<>(Arrays.asList(personSkill))).build();
 
     // when
-    this.service.createOrUpdatePersonWithSkills(personDto, false);
+    this.service.createPerson(personDto);
 
     // then
     verify(this.personRepository, times(2)).saveAndFlush(personArgument.capture());
@@ -212,7 +212,7 @@ public class PeopleManagementServiceTest {
     given(this.personRepository.findByStaffNumber("1")).willReturn(expected);
 
     // when
-    this.service.createOrUpdatePersonWithSkills(personDto, true);
+    this.service.updatePerson(personDto, "1");
 
     // then
     verify(this.personRepository, times(1)).saveAndFlush(personArgument.capture());
@@ -229,7 +229,7 @@ public class PeopleManagementServiceTest {
     final ArgumentCaptor<Skill> skillArgument = ArgumentCaptor.forClass(Skill.class);
 
     // when
-    this.service.createOrUpdateSkill(skillDto, false);
+    this.service.createSkill(skillDto);
 
     // then
     verify(this.skillRepository, times(1)).save(skillArgument.capture());
@@ -240,12 +240,12 @@ public class PeopleManagementServiceTest {
   @Test
   public void shouldUpdateSkill() {
     // given
-    final SkillDTO skillDto = SkillDTO.builder().name("Photography").build();
+    final SkillDTO skillDto = SkillDTO.builder().name("Photographer").build();
     final Skill expected = Skill.builder().name("Photography").build();
     given(this.skillRepository.findByName("Photography")).willReturn(expected);
 
     // when
-    this.service.createOrUpdateSkill(skillDto, true);
+    this.service.updateSkill(skillDto, "Photography");
 
     // then
     verify(this.skillRepository, times(1)).save(expected);

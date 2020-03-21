@@ -79,16 +79,26 @@ public class PeopleManagementService {
   }
 
   @Transactional
-  public void createOrUpdatePersonWithSkills(final PersonDTO personDto, final boolean update) {
-    final Person person;
-    if (update) {
-      person = this.getPerson(personDto.getStaffNumber());
-    } else {
-      person = Person.builder().name(personDto.getName()).staffNumber(personDto.getStaffNumber())
-          .build();
-      this.personRepository.saveAndFlush(person);
-    }
+  public void createPerson(final PersonDTO personDto) {
+    final Person person =
+        Person.builder().name(personDto.getName()).staffNumber(personDto.getStaffNumber()).build();
+    this.personRepository.saveAndFlush(person);
 
+    managePersonWithSkills(personDto, person);
+    this.personRepository.saveAndFlush(person);
+  }
+
+  @Transactional
+  public void updatePerson(final PersonDTO personDto, final String staffNumberOfExistingPerson) {
+    final Person person = this.getPerson(staffNumberOfExistingPerson);
+    person.setStaffNumber(personDto.getStaffNumber());
+    person.setName(personDto.getName());
+
+    managePersonWithSkills(personDto, person);
+    this.personRepository.saveAndFlush(person);
+  }
+
+  private void managePersonWithSkills(final PersonDTO personDto, final Person person) {
     if (personDto.getPersonSkills() != null && !personDto.getPersonSkills().isEmpty()) {
       final Set<PersonSkill> personSkills = new HashSet<>();
       for (PersonSkillDTO personSkillDto : personDto.getPersonSkills()) {
@@ -120,17 +130,18 @@ public class PeopleManagementService {
       }
 
     }
-    this.personRepository.saveAndFlush(person);
   }
 
   @Transactional
-  public void createOrUpdateSkill(final SkillDTO skillDto, final boolean update) {
-    final Skill skill;
-    if (update) {
-      skill = this.getSkill(skillDto.getName());
-    } else {
-      skill = Skill.builder().name(skillDto.getName()).build();
-    }
+  public void createSkill(final SkillDTO skillDto) {
+    final Skill skill = Skill.builder().name(skillDto.getName()).build();
+    this.skillRepository.save(skill);
+  }
+
+  @Transactional
+  public void updateSkill(final SkillDTO skillDto, final String nameOfExistingSkill) {
+    final Skill skill = this.getSkill(nameOfExistingSkill);
+    skill.setName(skillDto.getName());
     this.skillRepository.save(skill);
   }
 

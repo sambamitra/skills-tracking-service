@@ -79,7 +79,7 @@ public class PersonController {
       return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
-    this.service.createOrUpdatePersonWithSkills(personDto, false);
+    this.service.createPerson(personDto);
 
     return new ResponseEntity<>(personDto, HttpStatus.CREATED);
   }
@@ -105,7 +105,7 @@ public class PersonController {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    this.service.createOrUpdatePersonWithSkills(personDto, true);
+    this.service.updatePerson(personDto, staffNumber);
 
     return new ResponseEntity<>(personDto, HttpStatus.OK);
   }
