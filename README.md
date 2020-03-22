@@ -69,6 +69,10 @@ Once the application is running :-
 - When a person is created (POST /people) with a skill, the following happens :-
 	- If the skill already exists, only the person is created and an association is created between the person and the existing skill
 	- If the skill does not exist already, the skill is created first, then the person created and finally the association created between the person and the skill
+- When a person is updated (PUT /people) with a skill, the following happens :-
+	- If the skill already exists, only the person details are updated and the association between the person and the existing skill is updated (if skill level changes)
+	- If the skill does not exist already, the skill is created first, then the person details updated and finally the association created between the person and the skill
+	- If an existing skill is not sent in the request, that skill is deleted from the association table
 
 ## Technical debt
 
